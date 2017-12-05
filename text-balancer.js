@@ -62,9 +62,16 @@ var balanceText = function () {
     for (i = 0; i < candidates.length; i += 1) {
         element = candidates[i];
 
+        var event = new CustomEvent('balancebefore', { });
+        element.dispatchEvent(event);
         if (textElementIsMultipleLines(element)) {
             element.style.maxWidth = '';
             squeezeContainer(element, element.clientHeight, 0, element.clientWidth);
+            var event = new CustomEvent('balanceafter', { multiple_lines: true });
+            element.dispatchEvent(event);
+        } else {
+            var event = new CustomEvent('balanceafter', { multiple_lines: false });
+            element.dispatchEvent(event);
         }
 
     }
